@@ -1,3 +1,5 @@
+
+
 window.addEventListener('DOMContentLoaded', () => {
   const replaceText = (elementId, text) => {
     const el = document.getElementById(elementId);

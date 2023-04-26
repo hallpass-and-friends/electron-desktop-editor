@@ -1,9 +1,26 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, shell, ipcMain } = require('electron');
 const path = require('path');
+const fs = require('fs');
+
+const initializeEnv = require('./env');
 
 const PLATFORM = {
   DARWIN: 'darwin'
 };
+
+//lookup() is used to illustrate communication between main and a page (renderer)
+const lookup = () => {
+  const directory = path.join("__dirname", "assets"); //the assets directory
+  return new Promise((resolve, reject) => {
+    fs.readdir(directory, (err, files) => {
+      if (err) {
+        reject("Error reading asset folder");
+      } else {
+        resolve(files);
+      }
+    });
+  });
+}
 
 const createWindow = () => {
   const window = new BrowserWindow({
@@ -13,16 +30,30 @@ const createWindow = () => {
       preload: path.join(__dirname, 'preload.js')
     }
   });
+  
+  //allow renderer to "lookup" files on the file system
+  ipcMain.handle('lookup', lookup);
 
   window.loadFile('index.html');
+
+  window.webContents.setWindowOpenHandler((details) => {
+    shell.openExternal(details.url);
+    return { action: 'deny' };
+  });
+
 }
 
 app.whenReady()
   .then(() => {
+
+    //add the app env variables
+    initializeEnv(false); //todo: determine if app is in production or dev mode
+
+    //create the main window
     createWindow();
 
     const test = process.env;
-    
+
     //create a window when the app is activated and there are no windows
     app.on('activate', () => {
       if (BrowserWindow.getAllWindows().length === 0) {
