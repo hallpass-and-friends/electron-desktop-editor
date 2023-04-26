@@ -10,22 +10,18 @@ const PLATFORM = {
 
 //lookup() is used to illustrate communication between main and a page (renderer)
 const lookup = () => {
-  const directory = path.join("__dirname", "assets"); //the assets directory
-  return new Promise((resolve, reject) => {
-    fs.readdir(directory, (err, files) => {
-      if (err) {
-        reject("Error reading asset folder");
-      } else {
-        resolve(files);
-      }
-    });
-  });
+  try {
+    const directory = path.join(__dirname, "assets"); //the assets directory
+    return fs.readdirSync(directory);
+  } catch (error) {
+    return [`ERROR: ${error.message || error}`];
+  }
 }
 
 const createWindow = () => {
   const window = new BrowserWindow({
     width: 800, 
-    height: 600,
+    height: 1200,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }

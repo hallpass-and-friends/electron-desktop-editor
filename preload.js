@@ -1,4 +1,9 @@
+const { contextBridge, ipcRenderer } = require('electron');
 
+//bridge between main and renderer
+contextBridge.exposeInMainWorld('actions', {
+  lookup: () => ipcRenderer.invoke('lookup')
+});
 
 window.addEventListener('DOMContentLoaded', () => {
   const replaceText = (elementId, text) => {

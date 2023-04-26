@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+  <link rel="stylesheet" href="./index.css" />
+
   <title>Hello Electron</title>
 </head>
-<body>
-  <h1>Hello Electron</h1>
+<body class="container">
+  <h1>
+    <img src="./assets/logo-32.png" class="logo" alt="Application Logo" />
+    Hello Electron
+  </h1>
   <p>
-    Welcome to this very basic desktop app using <a href="https://www.electronjs.org/">Electron</a>.
+    Welcome to this very basic desktop app using <a href="https://www.electronjs.org/" target="_blank">Electron</a>.
   </p>
   <h3>Environment</h3>
   <ul>
@@ -20,5 +25,14 @@
     <li>Chromium: <em id="env-chrome-version"></em></li>
     <li>Electron: <em id="env-electron-version"></em></li>
   </ul>
+  <div class="actions">
+    <button id="btn_like">👍 Looks Good</button>
+    <button id="btn_dislike">👎 Don't Get It</button>
+    <span style="display: inline-block; width: 1em; height: 1em;"></span>
+    <button id="btn_lookup">Look up ./assets</button>
+  </div>
+  <pre id="output" class="output"></pre>
+  
+  <script src="./renderer.js"></script>
 </body>
 </html>
