@@ -24,7 +24,8 @@ const createWindow = () => {
     height: 1200,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
-    }
+    },
+    icon: '/assets/icons/icon.png'
   });
   
   //allow renderer to "lookup" files on the file system
