@@ -1,5 +1,5 @@
 const global = {
-  APP_NAME: 'Hello Electron Desktop'
+  APP_NAME: 'Electron Desktop Editor'
 }
 const dev = {
   APP_VERSION: "0.1-dev"

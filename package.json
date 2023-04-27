@@ -1,7 +1,7 @@
 {
-  "name": "hello-electron-desktop",
+  "name": "electron-desktop-editor",
   "version": "1.0.0",
-  "description": "Basic Electron Desktop App",
+  "description": "Simple (multi-tap) desktop editor using Electron",
   "main": "main.js",
   "scripts": {
     "dev": "electron .",
