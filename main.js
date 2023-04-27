@@ -1,4 +1,4 @@
-const { app, BrowserWindow, shell, ipcMain } = require('electron');
+const { app, BrowserWindow, shell, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -16,6 +16,23 @@ const lookup = () => {
   } catch (error) {
     return [`ERROR: ${error.message || error}`];
   }
+}
+
+const promptToClose = (app, mainWindow) => {
+  dialog.showMessageBox(mainWindow, {
+    type: 'info',
+    buttons: ['Yes (quit)', 'No (cancel)'],
+    cancelId: 1,
+    defaultId: 1,
+    title: 'Warning',
+    message: 'Hey, wait! Are you sure you want to quit?',
+    detail: "Press (Yes) to exit"
+  }).then(({ response, checkboxChecked }) => {
+    if (response === 0) {
+      mainWindow.destroy()
+      app.quit()
+    }
+  })
 }
 
 const createWindow = () => {
@@ -38,7 +55,12 @@ const createWindow = () => {
     return { action: 'deny' };
   });
 
-}
+  window.on('close', e => {
+    e.preventDefault();
+    promptToClose(app, window);
+  });
+
+} /* end createWindow() */
 
 app.whenReady()
   .then(() => {
