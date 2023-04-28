@@ -2,6 +2,8 @@ html, body {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 18px;
   line-height: 1.4;
+  background: rgb(78, 91, 105);
+  color:rgb(229, 232, 236);
 }
 .container {
   position: relative;
@@ -20,6 +22,11 @@ img.logo {
 }
 .actions > * {
   margin-right: 1em;
+}
+.action-sep {
+  display: inline-block; 
+  width: 1em; 
+  height: 1em;
 }
 
 button {

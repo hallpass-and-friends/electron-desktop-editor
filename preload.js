@@ -1,11 +1,13 @@
-const { contextBridge, ipcRenderer } = require('electron');
+const { nativeTheme, contextBridge, ipcRenderer } = require('electron');
 
-//bridge between main and renderer
+  //bridge between main and renderer
 contextBridge.exposeInMainWorld('actions', {
-  lookup: () => ipcRenderer.invoke('lookup')
+  lookup: () => ipcRenderer.invoke('lookup'),
+  themeMode: () => ipcRenderer.invoke('themeMode'),
 });
 
 window.addEventListener('DOMContentLoaded', () => {
+
   const replaceText = (elementId, text) => {
     const el = document.getElementById(elementId);
     if (el) {
